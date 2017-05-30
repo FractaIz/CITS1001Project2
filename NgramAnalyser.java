@@ -39,7 +39,7 @@ public class NgramAnalyser
      */
     public NgramAnalyser(int n, String inp) 
     { 
-        //TODO replace this line with your code
+        int hi = 1;
     }
 
     /** 
