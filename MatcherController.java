@@ -7,8 +7,8 @@ import java.io.*;
 /** Create and manipulate Markov models and model matchers for lists of training data 
  * a test data String and generate output from it for convenient display.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Tom Copcutt 22248715, Clayton Duncan 
+ * @version 30/5/2017
  *
  */
 public class MatcherController {

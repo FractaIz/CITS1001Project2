@@ -7,8 +7,8 @@ import java.util.Arrays;
  * Report the average log likelihood of a test String occuring in a 
  * given Markov model and detail the calculated values behind this statistic.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Tom Copcutt 22248715, Clayton Duncan
+ * @version 30/5/2017
  */
 public class ModelMatcher
 {

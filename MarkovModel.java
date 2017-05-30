@@ -2,8 +2,8 @@ import java.util.Set;
 /**
  * Construct a Markov model of order /k/ based on an input string.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Tom Copcutt 22248715, Clayton Duncan
+ * @version 30/5/2017
  */
 public class MarkovModel
 {

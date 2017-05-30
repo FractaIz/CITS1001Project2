@@ -9,8 +9,8 @@ import org.junit.Test;
  * The test class ProjectTest for student test cases.
  * Add all new test cases to this task.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author  Tom Copcutt 22248715, Clayton Duncan
+ * @version 30/5/2017
  */
 public class ProjectTest
 {
