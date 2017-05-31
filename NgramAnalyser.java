@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Arrays;
 
+
+import java.util.Map;
+import java.util.Iterator;
 /**
  * Perform n-gram analysis of a string.
  * 
@@ -29,6 +32,8 @@ public class NgramAnalyser
     /** n-gram size for this object (new field) */
     private int ngramSize;
 
+    private int inputLength;
+
     /** 
      * Analyse the frequency with which distinct n-grams, of length n,
      * appear in an input string. 
@@ -38,20 +43,42 @@ public class NgramAnalyser
      * @param String inp input string to be modelled
      */
     public NgramAnalyser(int n, String inp) { 
-        String[] ngramList = new String[inp.length()];
+        this.ngramSize = n;
+        this.inputLength = inp.length();
+        this.ngram = new HashMap<>(inp.length(), inp.length());
+        //splitting the input
+
+        //String[] ngramList = new String[inp.length()];
         for (int i = 0; i < inp.length(); i++) { //loops through each character in inp
                 String currentNGram = ""; //new nGram starting at ith position
                 for (int j = i; j-i < n ; j++) { //starting from the ith character, loop n characters after this
                     currentNGram = currentNGram.concat(inp.substring(j%inp.length(), j%inp.length()+1)); //concatonates the jth char to currNGram
                 }
-                ngramList[i] = currentNGram; // saves currNGram in ith position in ngramList
-                System.out.println(ngramList[i]);
+                if (ngram.containsKey(currentNGram)) {
+                    ngram.put(currentNGram, ngram.get(currentNGram) +1);
+                } else {
+                    ngram.put(currentNGram, 1);
+
+                }
+                //ngramList[i] = currentNGram; 
+                //System.out.println(ngramList[i]);
         }
         
+        //Prints the ngram
+        Set set = ngram.entrySet();
+        Iterator iterator = set.iterator();
+        while(iterator.hasNext()) {
+            Map.Entry mentry = (Map.Entry)iterator.next();
+            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
+            System.out.println(mentry.getValue());
+        }
 
-
-
-
+        if (n != 1) {
+        NgramAnalyser alpha = new NgramAnalyser(inp);
+        this.alphabetSize = alpha.getDistinctNgramCount();
+        } else {
+            this.alphabetSize = this.getDistinctNgramCount();
+        }
 
 
     }
@@ -67,8 +94,7 @@ public class NgramAnalyser
      * @return int the size of the alphabet of a given input
      */
     public int getAlphabetSize() {
-        //TODO replace this line with your code
-        return -1;
+        return alphabetSize;
     }
 
     /**
@@ -77,7 +103,7 @@ public class NgramAnalyser
      */
     public int getDistinctNgramCount() {
         //TODO replace this line with your code
-        return -1;
+        return ngram.size();
     }
 
     /** 
@@ -95,7 +121,7 @@ public class NgramAnalyser
      */
     public int getNgramCount() {
         //TODO replace this line with your code
-        return -1;
+        return this.inputLength;
     }
 
     /** Return the frequency with which a particular n-gram appears
