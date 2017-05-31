@@ -37,16 +37,29 @@ public class NgramAnalyser
      * @param int n size of n-grams to create
      * @param String inp input string to be modelled
      */
-    public NgramAnalyser(int n, String inp) 
-    { 
+    public NgramAnalyser(int n, String inp) { 
+        String[] ngramList = new String[inp.length()];
+        for (int i = 0; i < inp.length(); i++) { //loops through each character in inp
+                String currentNGram = ""; //new nGram starting at ith position
+                for (int j = i; j-i < n ; j++) { //starting from the ith character, loop n characters after this
+                    currentNGram = currentNGram.concat(inp.substring(j%inp.length(), j%inp.length()+1)); //concatonates the jth char to currNGram
+                }
+                ngramList[i] = currentNGram; // saves currNGram in ith position in ngramList
+                System.out.println(ngramList[i]);
+        }
         
+
+
+
+
+
+
     }
 
     /** 
      * Analyses the input text for n-grams of size 1.
      */
-    public NgramAnalyser(String inp) 
-    {
+    public NgramAnalyser(String inp) {
         this(1,inp);
     }
 
@@ -104,8 +117,7 @@ public class NgramAnalyser
      * comprising the ngram size and then each ngram and its frequency
      * where ngrams are presented in alphabetical order.     
      */
-    public String toString()
-    {
+    public String toString() {
         //TODO replace this line with your code
         return null;
     }
