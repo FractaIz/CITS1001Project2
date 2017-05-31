@@ -32,6 +32,7 @@ public class NgramAnalyser
     /** n-gram size for this object (new field) */
     private int ngramSize;
 
+    /** input length for this object (new field) */
     private int inputLength;
 
     /** 
@@ -46,22 +47,17 @@ public class NgramAnalyser
         this.ngramSize = n;
         this.inputLength = inp.length();
         this.ngram = new HashMap<>(inp.length(), inp.length());
-        //splitting the input
 
-        //String[] ngramList = new String[inp.length()];
         for (int i = 0; i < inp.length(); i++) { //loops through each character in inp
                 String currentNGram = ""; //new nGram starting at ith position
                 for (int j = i; j-i < n ; j++) { //starting from the ith character, loop n characters after this
                     currentNGram = currentNGram.concat(inp.substring(j%inp.length(), j%inp.length()+1)); //concatonates the jth char to currNGram
                 }
-                if (ngram.containsKey(currentNGram)) {
+                if (ngram.containsKey(currentNGram)) { //if the ngram exists, add one to its frequency
                     ngram.put(currentNGram, ngram.get(currentNGram) +1);
                 } else {
-                    ngram.put(currentNGram, 1);
-
+                    ngram.put(currentNGram, 1); //otherwise create a key for this ngram
                 }
-                //ngramList[i] = currentNGram; 
-                //System.out.println(ngramList[i]);
         }
         
         //Prints the ngram
@@ -73,14 +69,13 @@ public class NgramAnalyser
             System.out.println(mentry.getValue());
         }
 
+        //Alphabet size calculation
         if (n != 1) {
         NgramAnalyser alpha = new NgramAnalyser(inp);
-        this.alphabetSize = alpha.getDistinctNgramCount();
+        this.alphabetSize = alpha.getDistinctNgramCount(); //find alphabet size by getting number of distinct 1-grams 
         } else {
-            this.alphabetSize = this.getDistinctNgramCount();
+            this.alphabetSize = this.getDistinctNgramCount(); // 1-grams are simply a list of distinct characters, also bottoms recursion.
         }
-
-
     }
 
     /** 
