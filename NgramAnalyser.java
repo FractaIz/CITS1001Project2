@@ -43,38 +43,42 @@ public class NgramAnalyser
      * @param int n size of n-grams to create
      * @param String inp input string to be modelled
      */
-    public NgramAnalyser(int n, String inp) { 
-        this.ngramSize = n;
-        this.inputLength = inp.length();
-        this.ngram = new HashMap<>(inp.length(), inp.length());
+    public NgramAnalyser(int n, String inp) {
+        if(inp != null && inp != "" && n > 0 && n <= inp.length()) {
+            this.ngramSize = n;
+            this.inputLength = inp.length();
+            this.ngram = new HashMap<>(inp.length(), inp.length());
 
-        for (int i = 0; i < inp.length(); i++) { //loops through each character in inp
-                String currentNGram = ""; //new nGram starting at ith position
-                for (int j = i; j-i < n ; j++) { //starting from the ith character, loop n characters after this
-                    currentNGram = currentNGram.concat(inp.substring(j%inp.length(), j%inp.length()+1)); //concatonates the jth char to currNGram
-                }
-                if (ngram.containsKey(currentNGram)) { //if the ngram exists, add one to its frequency
-                    ngram.put(currentNGram, ngram.get(currentNGram) +1);
-                } else {
-                    ngram.put(currentNGram, 1); //otherwise create a key for this ngram
-                }
-        }
-        
-        //Prints the ngram
-        Set set = ngram.entrySet();
-        Iterator iterator = set.iterator();
-        while(iterator.hasNext()) {
-            Map.Entry mentry = (Map.Entry)iterator.next();
-            System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
-            System.out.println(mentry.getValue());
-        }
+            for (int i = 0; i < inp.length(); i++) { //loops through each character in inp
+                    String currentNGram = ""; //new nGram starting at ith position
+                    for (int j = i; j-i < n ; j++) { //starting from the ith character, loop n characters after this
+                        currentNGram = currentNGram.concat(inp.substring(j%inp.length(), j%inp.length()+1)); //concatonates the jth char to currNGram
+                    }
+                    if (ngram.containsKey(currentNGram)) { //if the ngram exists, add one to its frequency
+                        ngram.put(currentNGram, ngram.get(currentNGram) +1);
+                    } else {
+                        ngram.put(currentNGram, 1); //otherwise create a key for this ngram
+                    }
+            }
+            
+            //Prints the ngram
+            Set set = ngram.entrySet();
+            Iterator iterator = set.iterator();
+            while(iterator.hasNext()) {
+                Map.Entry mentry = (Map.Entry)iterator.next();
+                System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
+                System.out.println(mentry.getValue());
+            }
 
-        //Alphabet size calculation
-        if (n != 1) {
-        NgramAnalyser alpha = new NgramAnalyser(inp);
-        this.alphabetSize = alpha.getDistinctNgramCount(); //find alphabet size by getting number of distinct 1-grams 
+            //Alphabet size calculation
+            if (n != 1) {
+            NgramAnalyser alpha = new NgramAnalyser(inp);
+            this.alphabetSize = alpha.getDistinctNgramCount(); //find alphabet size by getting number of distinct 1-grams 
+            } else {
+                this.alphabetSize = this.getDistinctNgramCount(); // 1-grams are simply a list of distinct characters, also bottoms recursion.
+            }
         } else {
-            this.alphabetSize = this.getDistinctNgramCount(); // 1-grams are simply a list of distinct characters, also bottoms recursion.
+            throw new IllegalArgumentException("ngram size must be between 1 and the length of the input string. Input string must not be null or empty.");
         }
     }
 
@@ -107,7 +111,7 @@ public class NgramAnalyser
      */
     public Set<String> getDistinctNgrams() {
         //TODO replace this line with your code
-        return null;
+        return ngram.keySet();
     }
 
     /**
@@ -127,7 +131,7 @@ public class NgramAnalyser
      */
     public int getNgramFrequency(String ngram) {
         //TODO replace this line with your code
-        return -1;
+        return this.ngram.get(ngram);
     }
 
 
