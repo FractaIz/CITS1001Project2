@@ -48,7 +48,6 @@ public class NgramAnalyser
             this.ngramSize = n;
             this.inputLength = inp.length();
             this.ngram = new HashMap<>(inp.length(), inp.length());
-
             for (int i = 0; i < inp.length(); i++) { //loops through each character in inp
                     String currentNGram = ""; //new nGram starting at ith position
                     for (int j = i; j-i < n ; j++) { //starting from the ith character, loop n characters after this

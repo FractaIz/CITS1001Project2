@@ -9,11 +9,11 @@ public class MarkovModel
 {
 
     /** Markov model order parameter */
-    int k; 
+    private int k; 
     /** ngram model of order k */
-    NgramAnalyser ngram; 
+    private NgramAnalyser ngram; 
     /** ngram model of order k+1 */
-    NgramAnalyser n1gram; 
+    private NgramAnalyser n1gram; 
 
     /**
      * Construct an order-k Markov model from string s
@@ -21,8 +21,8 @@ public class MarkovModel
      * @param s String input to be modelled
      */
     public MarkovModel(int k, String s) {
-        NgramAnalyser ngram = new NgramAnalyser(k,s);
-        NgramAnalyser n1gram = new NgramAnalyser(k+1,s);
+        ngram = new NgramAnalyser(k,s);
+        n1gram = new NgramAnalyser(k+1,s);
         this.k = k;
     }
 
@@ -43,10 +43,7 @@ public class MarkovModel
     public double simpleEstimate(String sequence) {
         //TODO replace this line with your code
         String subsequence = sequence.substring(0, sequence.length() -1);
-        System.out.println(subsequence, n1gram.getNgramFrequency(sequence), ngram.getNgramFrequency(subsequence));
-        double ans1 = (double)n1gram.getNgramFrequency(sequence);
-        double ans2 = (double)ngram.getNgramFrequency(subsequence);
-        double ans = ans1 / ans2;
+        double ans = (double)n1gram.getNgramFrequency(sequence) / ngram.getNgramFrequency(subsequence);
         return ans;
 
     }
