@@ -2,7 +2,7 @@ import java.util.Set;
 /**
  * Construct a Markov model of order /k/ based on an input string.
  * 
- * @author Tom Copcutt 22248715, Clayton Duncan
+ * @author Tom Copcutt 22248715, Clayton Duncan 22251348
  * @version 30/5/2017
  */
 public class MarkovModel
@@ -20,9 +20,10 @@ public class MarkovModel
      * @param k int order of the Markov model
      * @param s String input to be modelled
      */
-    public MarkovModel(int k, String s) 
-    {
-        //TODO replace this line with your code
+    public MarkovModel(int k, String s) {
+        NgramAnalyser ngram = new NgramAnalyser(k,s);
+        NgramAnalyser n1gram = new NgramAnalyser(k+1,s);
+        this.k = k;
     }
 
     /**
@@ -41,7 +42,12 @@ public class MarkovModel
      */
     public double simpleEstimate(String sequence) {
         //TODO replace this line with your code
-        return -1.0;
+        String subsequence = sequence.substring(0, sequence.length() -1);
+        System.out.println(subsequence, n1gram.getNgramFrequency(sequence), ngram.getNgramFrequency(subsequence));
+        double ans1 = (double)n1gram.getNgramFrequency(sequence);
+        double ans2 = (double)ngram.getNgramFrequency(subsequence);
+        double ans = ans1 / ans2;
+        return ans;
 
     }
     /**
@@ -51,6 +57,7 @@ public class MarkovModel
     public double laplaceEstimate(String sequence) 
     { 
         //TODO replace this line with your code
+
         return -1.0;
     }
 
