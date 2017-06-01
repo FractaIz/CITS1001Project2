@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Arrays;
 
-
+//packages for iterating through hashmap
 import java.util.Map;
 import java.util.Iterator;
 /**
@@ -61,7 +61,8 @@ public class NgramAnalyser
                     }
             }
             
-            //Prints the ngram
+            //Prints the ngram 
+            /*
             Set set = ngram.entrySet();
             Iterator iterator = set.iterator();
             while(iterator.hasNext()) {
@@ -69,6 +70,7 @@ public class NgramAnalyser
                 System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
                 System.out.println(mentry.getValue());
             }
+            */
 
             //Alphabet size calculation
             if (n != 1) {
@@ -144,7 +146,15 @@ public class NgramAnalyser
      */
     public String toString() {
         //TODO replace this line with your code
-        return null;
+        String[] keys = ngram.keySet().toArray(new String[0]);
+        Arrays.sort(keys);
+        Integer a = ngramSize;
+        String answer = a.toString();
+        for (int i =0; i < ngram.keySet().size();i++) {
+            answer = answer.concat("\n" + keys[i] + " ");
+            answer = answer.concat(this.getNgramFrequency(keys[i]) + "");
+        }
+        return answer;
     }
 
 }

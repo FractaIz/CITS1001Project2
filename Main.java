@@ -2,8 +2,15 @@ import java.io.*;
 public class Main {
 	 
   public static void main(String[] args)throws IOException {
+  	
+		NgramAnalyser a = new NgramAnalyser(2, "aaabccd");
+    	System.out.println(a.toString());
+	
 
-		NgramAnalyser a = new NgramAnalyser(3, "cab bad");
-    System.out.println(a.getAlphabetSize());
+	/*
+    MarkovModel b = new MarkovModel(2, "aaabccd");
+    b.simpleEstimate("aab");
+	*/
+
   }
 }
