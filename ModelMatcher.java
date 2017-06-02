@@ -25,12 +25,21 @@ public class ModelMatcher
      * @param MarkovModel model a given Markov model object
      * @param String teststring
      */
-    public ModelMatcher(MarkovModel model, String testString)
-    {
+    public ModelMatcher(MarkovModel model, String testString) {
         //TODO 
+        MarkovModel model2 = new MarkovModel(model.getK(), testString);
+        NgramAnalyser ngram = new NgramAnalyser(model.getK()+1, teststring);
+        String[] keys = ngram.keySet().toArray(new String[0]);
+        Arrays.sort(keys);
+        loglikelihoods = new HashMap<>(keys.size, keys.size);
+        for (int i  = 0; i < keys.size; i++) {
+            double logEstimate = Math.log10(model2.laplaceEstimate(keys[i]));
+            loglikelihoods.put(keys[i], logEstimate*ngram.getNgramFrequency(keys[i]));
+        }
     }
 
-    /** Helper method that calculates the average log likelihood statistic
+    /** 
+     * Helper method that calculates the average log likelihood statistic
      * given a HashMap of strings and their Laplace probabilities
      * and the total number of ngrams in the model.
      * 
@@ -39,39 +48,45 @@ public class ModelMatcher
      * @return average log likelihood: the total of loglikelihoods 
      *    divided by the ngramCount
      */
-    private double averageLogLikelihood(HashMap<String,Double> logs, int ngramCount)
-    {
-        //TODO
-        return 0.1;
+    private double averageLogLikelihood(HashMap<String,Double> logs, int ngramCount) {
+        double likelihood = 0;
+        for(Map.Entry<String, HashMap> entry : selects.entrySet()) {
+            HashMap value = entry.getValue();
+            likelihood += value;
+        }
+        likelihood = likelihood/ngramCount;
+        return likelihood;
     }
     
-    /** Helper method to calculate the total log likelihood statistic
+    /** 
+     * Helper method to calculate the total log likelihood statistic
      * given a HashMap of strings and their Laplace probabilities
      * and the total number of ngrams in the model.
      * 
      * @param logs map of ngram strings and their log likelihood
      * @return total log likelihood: the sum of loglikelihoods in logs 
      */
-    private double totalLogLikelihood(HashMap<String,Double> logs)
-    {
-        //TODO
-        return 0.1;
+    private double totalLogLikelihood(HashMap<String,Double> logs) {
+        double likelihood = 0;
+        for(Map.Entry<String, HashMap> entry : selects.entrySet()) {
+            HashMap value = entry.getValue();
+            likelihood += value;
+        }
+        return likelihood;
     }
 
     
     /**
      * @return the average log likelihood statistic
      */
-    public double getAverageLogLikelihood() 
-    {
+    public double getAverageLogLikelihood() {
         return averageLogLikelihood;
     }
     
     /**
      * @return the log likelihood value for a given ngram from the input string
      */
-    public double getLogLikelihood(String ngram) 
-    {
+    public double getLogLikelihood(String ngram) {
         return (logLikelihoodMap.get(ngram));
     }
     
