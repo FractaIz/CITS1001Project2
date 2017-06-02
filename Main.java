@@ -28,6 +28,8 @@ public class Main {
       NgramAnalyser a = new NgramAnalyser(2, "aaabccd");
      // System.out.println(a.toString());
       MarkovModel model = new MarkovModel(2, "aabcabaacaac");
-      System.out.printf(model.toString());
+      //System.out.printf(model.toString());
+
+      ModelMatcher match = new ModelMatcher(model, "aabbcaac");
   }
 }

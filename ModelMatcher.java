@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Report the average log likelihood of a test String occuring in a 
@@ -28,14 +29,15 @@ public class ModelMatcher
     public ModelMatcher(MarkovModel model, String testString) {
         //TODO 
         MarkovModel model2 = new MarkovModel(model.getK(), testString);
-        NgramAnalyser ngram = new NgramAnalyser(model.getK()+1, teststring);
-        String[] keys = ngram.keySet().toArray(new String[0]);
+        NgramAnalyser ngram = new NgramAnalyser(model.getK()+1, testString);
+        String[] keys = ngram.getDistinctNgrams().toArray(new String[0]);
         Arrays.sort(keys);
-        loglikelihoods = new HashMap<>(keys.size, keys.size);
-        for (int i  = 0; i < keys.size; i++) {
+        logLikelihoodMap = new HashMap<>(ngram.getDistinctNgrams().size(), ngram.getDistinctNgrams().size());
+        for (int i  = 0; i < ngram.getDistinctNgrams().size(); i++) {
             double logEstimate = Math.log10(model2.laplaceEstimate(keys[i]));
-            loglikelihoods.put(keys[i], logEstimate*ngram.getNgramFrequency(keys[i]));
+            logLikelihoodMap.put(keys[i], logEstimate*ngram.getNgramFrequency(keys[i]));
         }
+        averageLogLikelihood = averageLogLikelihood(logLikelihoodMap, ngram.getDistinctNgrams().size());
     }
 
     /** 
@@ -50,9 +52,8 @@ public class ModelMatcher
      */
     private double averageLogLikelihood(HashMap<String,Double> logs, int ngramCount) {
         double likelihood = 0;
-        for(Map.Entry<String, HashMap> entry : selects.entrySet()) {
-            HashMap value = entry.getValue();
-            likelihood += value;
+        for(Map.Entry<String, Double> entry : logs.entrySet()) {
+            likelihood += entry.getValue();
         }
         likelihood = likelihood/ngramCount;
         return likelihood;
@@ -68,9 +69,8 @@ public class ModelMatcher
      */
     private double totalLogLikelihood(HashMap<String,Double> logs) {
         double likelihood = 0;
-        for(Map.Entry<String, HashMap> entry : selects.entrySet()) {
-            HashMap value = entry.getValue();
-            likelihood += value;
+        for(Map.Entry<String, Double> entry : logs.entrySet()) {
+            likelihood += entry.getValue();
         }
         return likelihood;
     }
