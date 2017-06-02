@@ -63,10 +63,13 @@ public class MarkovModel
     /**
      * @return String representing this Markov model
      */
-    public String toString()
-    {
+    public String toString() {
         //TODO replace this line with your code
-        return null;
+        String ans = Integer.toString(k);
+        ans = ans.concat("\n" + Integer.toString(ngram.getAlphabetSize()));
+        ans = ans.concat("\n" + ngram.toString());
+        ans = ans.concat("\n" + n1gram.toString());
+        return ans;
     }
 
 }

@@ -149,8 +149,7 @@ public class NgramAnalyser
         //TODO replace this line with your code
         String[] keys = ngram.keySet().toArray(new String[0]);
         Arrays.sort(keys);
-        Integer a = ngramSize;
-        String answer = a.toString();
+        String answer = Integer.toString(ngramSize);
         for (int i =0; i < ngram.keySet().size();i++) {
             answer = answer.concat("\n" + keys[i] + " ");
             answer = answer.concat(this.getNgramFrequency(keys[i]) + "");
