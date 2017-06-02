@@ -45,8 +45,22 @@ public class ProjectTest
     
      @Test(timeout=1000)
     public void testSensibleToStringSize() {
-        NgramAnalyser test = new NgramAnalyser(n, "aabaaabc");
-        assertEquals(test.toString()./*number of lines in string*/, test.getAlphabetSize()); //TODO replace with test code
+        NgramAnalyser test = new NgramAnalyser(2, "aabaaabc");
+        //System.out.println(test.getAlphabetSize()+1);
+        //System.out.println(countLines(test.toString()));
+        assertTrue( countLines(test.toString()) >= test.getAlphabetSize()+1); //TODO replace with test code
+    }
+
+    private static int countLines(String str) {
+        if(str == null || str.isEmpty()) {
+            return 0;
+        }
+        int lines = 1;
+        int pos = 0;
+        while ((pos = str.indexOf("\n", pos) + 1) != 0) {
+            lines++;
+        }
+        return lines;
     }
 
    

@@ -39,8 +39,8 @@ public class ModelMatcher
         for (int i  = 0; i < ngram.getDistinctNgrams().size(); i++) {
             double logEstimate = Math.log10(model.laplaceEstimate(keys[i]));
             logLikelihoodMap.put(keys[i], logEstimate*ngram.getNgramFrequency(keys[i]));
-            System.out.print(logEstimate + " ");
-            System.out.println(ngram.getNgramFrequency(keys[i]));
+            //System.out.print(logEstimate + " ");
+            //System.out.println(ngram.getNgramFrequency(keys[i]));
         }
 
         averageLogLikelihood = averageLogLikelihood(logLikelihoodMap, ngram.getNgramCount());
@@ -104,9 +104,7 @@ public class ModelMatcher
      */
     public String toString() 
    {
-       //TODO
-
-       return null;
+        return null;
     }
 
  

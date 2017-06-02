@@ -26,7 +26,7 @@ public class Main {
     System.out.printf("%.4f\n", model.laplaceEstimate("aac"));
     System.out.printf("%.4f\n", model.laplaceEstimate("aaa"));
     System.out.printf("%.4f\n", model.laplaceEstimate("aab"));
-*/
+*//*
       NgramAnalyser a = new NgramAnalyser(2, "aaabccd");
      // System.out.println(a.toString());
       MarkovModel model = new MarkovModel(2, "aabcabaacaac");
@@ -42,7 +42,26 @@ public class Main {
 
 
 
-      ArrayList<String> n = new ArrayList<>();
+      
+
+      ProjectTest test = new ProjectTest();
+      test.testSensibleToStringSize();
+      
+      NgramAnalyser test = new NgramAnalyser(2, "aabaaabc");
+        System.out.println(test.getAlphabetSize()+1);
+        System.out.println(countLines(test.toString()));
+        System.out.println(test.toString());
+
+
+
+        MarkovModel model = new MarkovModel(2,"aabcabaacaac");
+        //assertEquals((int) Math.round(model.laplaceEstimate("aac")*10000), (int)(0.5000*10000));
+        System.out.println((int) Math.round(model.simpleEstimate("aaa") * 10000));
+        System.out.println((int)(0.1667*10000));
+        //assertEquals((int) Math.round(model.laplaceEstimate("aaa") * 10000), (int)(0.1667*10000));
+        //assertEquals((int) Math.round(model.laplaceEstimate("aab") * 10000), (int)(0.3333*10000));
+*/
+        ArrayList<String> n = new ArrayList<>();
       n.add("bacbabbabca");
       n.add("H$%*(UREIJGNKDF");
       n.add("aaaaaaaaa");
@@ -51,7 +70,18 @@ public class Main {
       n.add("bacbaabacbacbcabcbabbabcbacbabbbabca");
       n.add("bacbabbaabca");
 
-      //MatcherController con = new MatcherController(2,n, "babacbacbb");
-      //System.out.println(con.getBestMatch(con.matcherList).getAverageLogLikelihood());
+      MatcherController con = new MatcherController(2,n, "babacbacbb");
+      System.out.println(con.toString());
   }
+  private static int countLines(String str) {
+        if(str == null || str.isEmpty()) {
+            return 0;
+        }
+        int lines = 1;
+        int pos = 0;
+        while ((pos = str.indexOf("\n", pos) + 1) != 0) {
+            lines++;
+        }
+        return lines;
+    }
 }
