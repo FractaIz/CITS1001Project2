@@ -45,7 +45,8 @@ public class ProjectTest
     
      @Test(timeout=1000)
     public void testSensibleToStringSize() {
-        assertEquals(0,1); //TODO replace with test code
+        NgramAnalyser test = new NgramAnalyser(n, "aabaaabc");
+        assertEquals(test.toString()./*number of lines in string*/, test.getAlphabetSize()); //TODO replace with test code
     }
 
    

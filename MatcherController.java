@@ -1,4 +1,6 @@
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -62,13 +64,16 @@ public class MatcherController {
  
 
     /** 
+     * @param filename file path to a .txt document.
      * @return a string containing all lines from a file 
      * ff file contents can be got, otherwise null
      * This method should process any exceptions that arise.
      */
     private  static String getFileContents(String filename) {
-        //TODO 
-        //String string  = Files.lines(filename);
+        //TODO
+        //Files path = new Files(filename);
+        //Path path = Paths.get(filename);
+        //String string  = Files.readAllLines(path).toArray().toString();
 
         return null;
     }
@@ -76,6 +81,7 @@ public class MatcherController {
  
 
     /**
+     * @param A list of ModelMatcher objects for comparison
      * @return the ModelMatcher object that has the highest average loglikelihood
      * (where all candidates are trained for the same test string
      */
@@ -92,6 +98,7 @@ public class MatcherController {
     }
 
     /** 
+     * @param best the ModelMatcher object which is found to have the highest resemblence to the source text
      * @return String an *explanation* of
      * why the test string is the match from the candidate models
      */

@@ -37,6 +37,7 @@ public class Main {
 
 
       ModelMatcher match = new ModelMatcher(model, "aabbcaac");
+      System.out.println(match.getAverageLogLikelihood());
 
 
 
@@ -50,6 +51,7 @@ public class Main {
       n.add("bacbaabacbacbcabcbabbabcbacbabbbabca");
       n.add("bacbabbaabca");
 
-      MatcherController con = new MatcherController(2,n, "babacbacbb");
+      //MatcherController con = new MatcherController(2,n, "babacbacbb");
+      //System.out.println(con.getBestMatch(con.matcherList).getAverageLogLikelihood());
   }
 }

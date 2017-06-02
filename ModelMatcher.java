@@ -28,16 +28,22 @@ public class ModelMatcher
      */
     public ModelMatcher(MarkovModel model, String testString) {
         //TODO 
-        MarkovModel model2 = new MarkovModel(model.getK(), testString);
+        //MarkovModel model2 = new MarkovModel(model.getK(), testString);
         NgramAnalyser ngram = new NgramAnalyser(model.getK()+1, testString);
         String[] keys = ngram.getDistinctNgrams().toArray(new String[0]);
-        Arrays.sort(keys);
+        //Arrays.sort(keys);
         logLikelihoodMap = new HashMap<>(ngram.getDistinctNgrams().size(), ngram.getDistinctNgrams().size());
+
+
+        System.out.println(ngram.getDistinctNgrams().size());
         for (int i  = 0; i < ngram.getDistinctNgrams().size(); i++) {
-            double logEstimate = Math.log10(model2.laplaceEstimate(keys[i]));
+            double logEstimate = Math.log10(model.laplaceEstimate(keys[i]));
             logLikelihoodMap.put(keys[i], logEstimate*ngram.getNgramFrequency(keys[i]));
+            System.out.print(logEstimate + " ");
+            System.out.println(ngram.getNgramFrequency(keys[i]));
         }
-        averageLogLikelihood = averageLogLikelihood(logLikelihoodMap, ngram.getDistinctNgrams().size());
+
+        averageLogLikelihood = averageLogLikelihood(logLikelihoodMap, ngram.getNgramCount());
     }
 
     /** 
@@ -99,6 +105,7 @@ public class ModelMatcher
     public String toString() 
    {
        //TODO
+
        return null;
     }
 
