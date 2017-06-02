@@ -9,11 +9,11 @@ public class MarkovModel
 {
 
     /** Markov model order parameter */
-    private int k; 
+    int k; 
     /** ngram model of order k */
-    private NgramAnalyser ngram; 
+    NgramAnalyser ngram; 
     /** ngram model of order k+1 */
-    private NgramAnalyser n1gram; 
+    NgramAnalyser n1gram; 
 
     /**
      * Construct an order-k Markov model from string s
@@ -34,7 +34,8 @@ public class MarkovModel
         return k;
     }
 
-    /** Estimate the probability of a sequence appearing in the text 
+    /**
+     * Estimate the probability of a sequence appearing in the text 
      * using simple estimate of freq seq / frequency front(seq).
      * @param sequence String of length k+1
      * @return double probability of the last letter occuring in the 

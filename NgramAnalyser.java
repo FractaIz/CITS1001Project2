@@ -124,7 +124,8 @@ public class NgramAnalyser
         return inputLength;
     }
 
-    /** Return the frequency with which a particular n-gram appears
+    /** 
+     * Return the frequency with which a particular n-gram appears
      * in the text. If it does not appear at all, return 0.
      * 
      * @param ngram The n-gram to get the frequency of
