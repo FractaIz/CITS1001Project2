@@ -51,11 +51,13 @@ public class MarkovModel
      * Calculate the Laplacian probability of string obs given this Markov model
      * @input sequence String of length k+1
      */
-    public double laplaceEstimate(String sequence) 
-    { 
+    public double laplaceEstimate(String sequence) { 
         //TODO replace this line with your code
+        String subsequence = sequence.substring(0, sequence.length() -1);
+        double ans = (double)(n1gram.getNgramFrequency(sequence) + 1)/ (ngram.getNgramFrequency(subsequence) + ngram.getAlphabetSize());
 
-        return -1.0;
+
+        return ans;
     }
 
     /**

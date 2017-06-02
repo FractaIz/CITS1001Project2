@@ -121,7 +121,7 @@ public class NgramAnalyser
      */
     public int getNgramCount() {
         //TODO replace this line with your code
-        return this.inputLength;
+        return inputLength;
     }
 
     /** Return the frequency with which a particular n-gram appears
@@ -132,7 +132,9 @@ public class NgramAnalyser
      */
     public int getNgramFrequency(String ngram) {
         //TODO replace this line with your code
-        return this.ngram.get(ngram);
+        if (this.ngram.containsKey(ngram)) {
+            return this.ngram.get(ngram);
+        } else {return 0;}
     }
 
 
