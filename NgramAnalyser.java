@@ -18,11 +18,10 @@ import java.util.Iterator;
  * a sequence of contiguous characters from the start of the string.
  * e.g. "abbc" includes "bca" and "cab" in its 3-grams
  * 
- * @author Tom Copcutt 22248715, Clayton Duncan
- * @version 30/5/2017
+ * @author Tom Copcutt 22248715, Clayton Duncan 22251348
+ * @version 3/6/2017
  */
-public class NgramAnalyser
-{
+public class NgramAnalyser {
     /** dictionary of all distinct n-grams and their frequencies */
     private HashMap<String,Integer> ngram;
 
@@ -42,6 +41,7 @@ public class NgramAnalyser
      * e.g. "abbbbc" includes "bca" and "cab" in its 3-grams
      * @param int n size of n-grams to create
      * @param String inp input string to be modelled
+     * @throws IllegalArgumentException if the parameters are invalid.
      */
     public NgramAnalyser(int n, String inp) {
         if(inp != null && inp != "" && n > 0 && n <= inp.length()) {
@@ -56,7 +56,7 @@ public class NgramAnalyser
                     if (ngram.containsKey(currentNGram)) { //if the ngram exists, add one to its frequency
                         ngram.put(currentNGram, ngram.get(currentNGram) +1);
                     } else {
-                        ngram.put(currentNGram, 1); //otherwise create a key for this ngram
+                        ngram.put(currentNGram, 1); //otherwise create a key for this ngram with frequency 1
                     }
             }
             
@@ -74,9 +74,9 @@ public class NgramAnalyser
             //Alphabet size calculation
             if (n != 1) {
             NgramAnalyser alpha = new NgramAnalyser(inp);
-            this.alphabetSize = alpha.getDistinctNgramCount(); //find alphabet size by getting number of distinct 1-grams 
+            alphabetSize = alpha.getDistinctNgramCount(); //find alphabet size by getting number of distinct 1-grams 
             } else {
-                this.alphabetSize = this.getDistinctNgramCount(); // 1-grams are simply a list of distinct characters, also bottoms recursion.
+                alphabetSize = getDistinctNgramCount(); // 1-grams are simply a list of distinct characters, also bottoms recursion.
             }
         } else {
             throw new IllegalArgumentException("ngram size must be between 1 and the length of the input string. Input string must not be null or empty.");
@@ -85,6 +85,7 @@ public class NgramAnalyser
 
     /** 
      * Analyses the input text for n-grams of size 1.
+     * @param String inp input string to be modelled
      */
     public NgramAnalyser(String inp) {
         this(1,inp);
@@ -98,7 +99,7 @@ public class NgramAnalyser
     }
 
     /**
-     * @return the total number of distinct n-grams appearing
+     * @return int the total number of distinct n-grams appearing
      *         in the input text.
      */
     public int getDistinctNgramCount() {
@@ -107,7 +108,7 @@ public class NgramAnalyser
     }
 
     /** 
-     * @return Return a set containing all the distinct n-grams
+     * @return Set<String> Return a set containing all the distinct n-grams
      *         in the input string.
      */
     public Set<String> getDistinctNgrams() {
@@ -116,7 +117,7 @@ public class NgramAnalyser
     }
 
     /**
-     * @return the total number of n-grams appearing
+     * @return int the total number of n-grams appearing
      *         in the input text (not requiring them to be distinct)
      */
     public int getNgramCount() {
@@ -128,8 +129,8 @@ public class NgramAnalyser
      * Return the frequency with which a particular n-gram appears
      * in the text. If it does not appear at all, return 0.
      * 
-     * @param ngram The n-gram to get the frequency of
-     * @return The frequency with which the n-gram appears.
+     * @param String ngram The n-gram to get the frequency of
+     * @return int The frequency with which the n-gram appears.
      */
     public int getNgramFrequency(String ngram) {
         //TODO replace this line with your code
@@ -137,8 +138,6 @@ public class NgramAnalyser
             return this.ngram.get(ngram);
         } else {return 0;}
     }
-
-
 
     /**
      * Generate a summary of the ngrams for this object.
@@ -151,11 +150,10 @@ public class NgramAnalyser
         String[] keys = ngram.keySet().toArray(new String[0]);
         Arrays.sort(keys);
         String answer = Integer.toString(ngramSize);
+
         for (int i =0; i < ngram.keySet().size();i++) {
-            answer = answer.concat("\n" + keys[i] + " ");
-            answer = answer.concat(this.getNgramFrequency(keys[i]) + "");
+            answer = answer.concat("\n" + keys[i] + " " + getNgramFrequency(keys[i]));
         }
         return answer;
     }
-
 }
