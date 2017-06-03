@@ -35,7 +35,7 @@ public class ModelMatcher
         logLikelihoodMap = new HashMap<>(ngram.getDistinctNgrams().size(), ngram.getDistinctNgrams().size());
 
 
-        System.out.println(ngram.getDistinctNgrams().size());
+        //System.out.println(ngram.getDistinctNgrams().size());
         for (int i  = 0; i < ngram.getDistinctNgrams().size(); i++) {
             double logEstimate = Math.log10(model.laplaceEstimate(keys[i]));
             logLikelihoodMap.put(keys[i], logEstimate*ngram.getNgramFrequency(keys[i]));
@@ -104,8 +104,22 @@ public class ModelMatcher
      */
     public String toString() 
    {
-        return null;
-    }
+      String ans =   "";
+        ans = ans.concat("\n" + (double) Math.round(getAverageLogLikelihood() *10000d)/10000d );
 
- 
+        String[] keys = logLikelihoodMap.keySet().toArray(new String[0]);
+        /*
+        Could make strings of each number and the connected key with value first, sort, then decode the strings agains
+        */
+
+
+        //String answer = Integer.toString(ngramSize);
+        for (int i =0; i < logLikelihoodMap.keySet().size();i++) {
+            ans = ans.concat("\n" + keys[i] + " ");
+            ans = ans.concat((double) Math.round(this.getLogLikelihood(keys[i]) *10000d)/10000d  + "");
+        }
+
+//Math.round(model.laplaceEstimate("aab") * 10000)
+        return ans;
+    }
 }

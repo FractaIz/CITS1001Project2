@@ -20,13 +20,12 @@ public class Main {
 	
  NgramAnalyser a = new NgramAnalyser(2, "aaabccd");
       System.out.println(a.getNgramFrequency("v"));
-
-    
 	   MarkovModel model = new MarkovModel(2, "aabcabaacaac");
-    System.out.printf("%.4f\n", model.laplaceEstimate("aac"));
-    System.out.printf("%.4f\n", model.laplaceEstimate("aaa"));
-    System.out.printf("%.4f\n", model.laplaceEstimate("aab"));
-*//*
+      System.out.printf("%.4f\n", model.laplaceEstimate("aac"));
+      System.out.printf("%.4f\n", model.laplaceEstimate("aaa"));
+      System.out.printf("%.4f\n", model.laplaceEstimate("aab"));
+*/
+/*
       NgramAnalyser a = new NgramAnalyser(2, "aaabccd");
      // System.out.println(a.toString());
       MarkovModel model = new MarkovModel(2, "aabcabaacaac");
@@ -42,10 +41,7 @@ public class Main {
 
 
 
-      
-
-      ProjectTest test = new ProjectTest();
-      test.testSensibleToStringSize();
+    
       
       NgramAnalyser test = new NgramAnalyser(2, "aabaaabc");
         System.out.println(test.getAlphabetSize()+1);
@@ -55,12 +51,16 @@ public class Main {
 
 
         MarkovModel model = new MarkovModel(2,"aabcabaacaac");
-        //assertEquals((int) Math.round(model.laplaceEstimate("aac")*10000), (int)(0.5000*10000));
+        //System.out.println((int) Math.round(model.simpleEstimate("aaa") * 10000));
+        //System.out.println((int)(0.1667*10000));
+        System.out.println(model.simpleEstimate("aac"));
+        System.out.println((int) Math.round(model.simpleEstimate("aac")*10000));
+        System.out.println(model.simpleEstimate("aaa"));
         System.out.println((int) Math.round(model.simpleEstimate("aaa") * 10000));
-        System.out.println((int)(0.1667*10000));
-        //assertEquals((int) Math.round(model.laplaceEstimate("aaa") * 10000), (int)(0.1667*10000));
-        //assertEquals((int) Math.round(model.laplaceEstimate("aab") * 10000), (int)(0.3333*10000));
-*/
+        System.out.println(model.simpleEstimate("aab"));
+        System.out.println((int) Math.round(model.simpleEstimate("aab") * 10000));
+
+
         ArrayList<String> n = new ArrayList<>();
       n.add("bacbabbabca");
       n.add("H$%*(UREIJGNKDF");
@@ -71,8 +71,14 @@ public class Main {
       n.add("bacbabbaabca");
 
       MatcherController con = new MatcherController(2,n, "babacbacbb");
-      System.out.println(con.toString());
-  }
+      //System.out.println(con.toString());
+  */
+  
+        MarkovModel model = new MarkovModel(2,"aabcabaacaac");
+        ModelMatcher match = new ModelMatcher(model,"aabbcaac");
+        System.out.println((int)Math.round(Math.abs(match.getAverageLogLikelihood()*10000)));
+    }
+    /*
   private static int countLines(String str) {
         if(str == null || str.isEmpty()) {
             return 0;
@@ -84,4 +90,5 @@ public class Main {
         }
         return lines;
     }
+    */
 }
