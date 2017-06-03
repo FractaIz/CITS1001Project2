@@ -103,7 +103,7 @@ public class NgramAnalyser
      */
     public int getDistinctNgramCount() {
         //TODO replace this line with your code
-        return ngram.size();
+        return ngram.keySet().size();
     }
 
     /** 
